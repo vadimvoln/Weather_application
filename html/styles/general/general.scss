@@ -1,0 +1,27 @@
+body {
+  background: $bg-color no-repeat;
+  height: 100vh;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-weight: 400;
+  padding-top: 50px;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1600px;
+  height: 700px;
+  margin: 0 auto;
+  display: flex;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+input {
+  margin: 0;
+  padding: 0;
+}

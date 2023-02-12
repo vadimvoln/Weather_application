@@ -1,0 +1,140 @@
+.right {
+  background-color: $bg-right-color;
+  max-width: 420px;
+
+  padding: 20px 40px 20px 40px;
+  .btns {
+    display: flex;
+    button {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      color: #000;
+      background-color: $btn-color;
+      border: none;
+      cursor: pointer;
+
+      padding: 12px 23px;
+      border-radius: 65px;
+      transition: background-color ease-in-out 0.2s;
+
+      margin-right: 20px;
+
+      &:last-child {
+        margin: 0;
+      }
+
+      &:hover {
+        background-color: $btn-color-active;
+        color: #fff;
+        transition: background-color ease-in-out 0.2s, color ease-in-out 0.2s;
+      }
+    }
+    .active {
+      background-color: $btn-color-active;
+      color: #fff;
+    }
+  }
+
+  .locationForm {
+    display: flex;
+    margin-top: 20px;
+    input {
+      outline: none;
+      border: none;
+      background-color: transparent;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 0;
+
+      margin-right: 20px;
+      border-bottom: 1px solid #7f9fb5;
+      transition: border-color ease-in-out 0.2s;
+
+      &::placeholder {
+        color: $text-color;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+
+        transition: color ease-in-out 0.2s;
+      }
+      &:focus {
+        border-color: #fff;
+        &::placeholder {
+          color: #fff;
+        }
+      }
+      &:hover {
+        border-color: #fff;
+        &::placeholder {
+          color: #fff;
+
+          transition: color ease-in-out 0.2s, border-color ease-in-out 0.2s;
+        }
+      }
+    }
+
+    button {
+      background-color: $btn-color;
+      border: none;
+      cursor: pointer;
+      border-radius: 50%;
+      display: flex;
+      padding: 10px 11px;
+      align-items: center;
+      justify-content: center;
+
+      &:last-child {
+        margin-left: 20px;
+      }
+    }
+  }
+  .capitalList {
+    margin-top: 30px;
+    border-bottom: 1px solid #7f9fb5;
+    li {
+      font-family: 'Montserrat';
+      font-weight: 400;
+      font-size: 16px;
+      color: $text-color;
+      cursor: pointer;
+
+      margin-bottom: 30px;
+      transition: color ease-in-out 0.1s;
+
+      &:hover {
+        color: #fff;
+        transition: color ease-in-out 0.1s;
+      }
+    }
+  }
+
+  .detailsTitle {
+    margin: 0;
+    margin-top: 40px;
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 18px;
+    color: #ffffff;
+  }
+
+  .detailsList {
+    margin-top: 30px;
+    li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      font-family: 'Montserrat';
+      font-weight: 400;
+      font-size: 16px;
+      color: $text-color;
+      span:last-child {
+        color: #fff;
+        font-weight: 500;
+      }
+    }
+  }
+}
