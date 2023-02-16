@@ -86,6 +86,26 @@
       padding: 10px 11px;
       align-items: center;
       justify-content: center;
+      transition: background-color ease-in-out 0.2s;
+      & {
+        svg {
+          path {
+            transition: fill ease-in-out 0.2s;
+          }
+        }
+      }
+      &:hover {
+        background-color: $btn-color-active;
+        transition: background-color ease-in-out 0.2s;
+        & {
+          svg {
+            path {
+              fill: #fff;
+              transition: fill ease-in-out 0.2s;
+            }
+          }
+        }
+      }
 
       &:last-child {
         margin-left: 20px;
