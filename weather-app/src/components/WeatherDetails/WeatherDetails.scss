@@ -1,0 +1,25 @@
+.detailsTitle {
+  margin: 0;
+  margin-top: 40px;
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.detailsList {
+  margin-top: 30px;
+  li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 16px;
+    color: $text-color;
+    span:last-child {
+      color: #fff;
+      font-weight: 500;
+    }
+  }
+}

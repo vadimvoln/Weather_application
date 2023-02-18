@@ -1,0 +1,76 @@
+.locationForm {
+  display: flex;
+  margin-top: 20px;
+  input {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 0;
+
+    margin-right: 20px;
+    border-bottom: 1px solid #7f9fb5;
+    transition: border-color ease-in-out 0.2s;
+
+    &::placeholder {
+      color: $text-color;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+
+      transition: color ease-in-out 0.2s;
+    }
+    &:focus {
+      border-color: #fff;
+      &::placeholder {
+        color: #fff;
+      }
+    }
+    &:hover {
+      border-color: #fff;
+      &::placeholder {
+        color: #fff;
+
+        transition: color ease-in-out 0.2s, border-color ease-in-out 0.2s;
+      }
+    }
+  }
+
+  button {
+    background-color: $btn-color;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    padding: 10px 11px;
+    align-items: center;
+    justify-content: center;
+    transition: background-color ease-in-out 0.2s;
+    & {
+      svg {
+        path {
+          transition: fill ease-in-out 0.2s;
+        }
+      }
+    }
+    &:hover {
+      background-color: $btn-color-active;
+      transition: background-color ease-in-out 0.2s;
+      & {
+        svg {
+          path {
+            fill: #fff;
+            transition: fill ease-in-out 0.2s;
+          }
+        }
+      }
+    }
+
+    &:last-child {
+      margin-left: 20px;
+    }
+  }
+}
