@@ -5,8 +5,8 @@
     height: 700px;
     filter: blur(4px);
   }
-  @import '../components/TodayWeather/TodayWeather.scss';
-  @import '../components/WeatherDays/WeatherDays.scss';
+  @import '../../components/TodayWeather/TodayWeather.scss';
+  @import '../../components/WeatherDays/WeatherDays.scss';
 }
 
 .right {
@@ -47,7 +47,7 @@
     }
   }
 
-  @import '../components/LocationForm/LocationForm.scss';
-  @import '../components/Capitals/Capitals.scss';
-  @import '../components/WeatherDetails/WeatherDetails.scss';
+  @import '../../components/LocationForm/LocationForm.scss';
+  @import '../../components/Capitals/Capitals.scss';
+  @import '../../components/WeatherDetails/WeatherDetails.scss';
 }
