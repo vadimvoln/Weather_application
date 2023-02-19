@@ -21,11 +21,11 @@ function App() {
     lon: 0,
     lat: 0
   })
+  const [weather, setWeather] = React.useState([])
   const [warning, setWarning] = React.useState(false)
 
   const getGeoFromInput = (inputValue) => {
     if (inputValue !== city.name) {
-      console.log(config.key)
       const request = Axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${inputValue}&appid=${config.key}`)
       request
         .then((res) => {
@@ -34,19 +34,36 @@ function App() {
             lon: res.data[0].lon,
             lat: res.data[0].lat
           })
-          console.log(res);
         })
         .catch((error) => setWarning(true))
     }
   }
-  // React.useEffect(() => {
-  //   if (city.name === '') {
-  //     return
-  //   } else {
-  //     // const request = Axios.get(`http//:api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&appid=${config.KEY}`)
-  //     // request.then((res) => console.log(res))
-  //   }
-  // }, [city])
+
+  React.useEffect(() => {
+    if (city.name === '') {
+      return
+    } else {
+      const request = Axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&units=metric&lon=${city.lon}&appid=${config.key}`)
+      request
+        .then((res) => {
+          setWeather(res.data.list)
+          console.log(res.data.list)
+        })
+    }
+  }, [city])
+
+  const getCurrentWeather = () => {
+    if (city.name !== '') {
+      const curDate = Date.now()
+      for (let i = 0; i < weather.length - 1; i++) {
+        const weatherDt = Date.parse(weather[i].dt_txt)
+        const weatherDtNext = Date.parse(weather[i + 1].dt_txt)
+        if (curDate >= weatherDt && curDate < weatherDtNext) {
+          return weather[i]
+        }
+      }
+    }
+  }
 
   return (
     <div className="App">
@@ -71,7 +88,9 @@ function App() {
             alt="background image"
             className="leftBg"
           />
-          {appState === states[0] && <TodayWeather />}
+          {appState === states[0] && <TodayWeather
+            currentWeather={getCurrentWeather}
+            city={city.name} />}
           {appState === states[1] && <WeatherDays />}
         </div>
       </div>
