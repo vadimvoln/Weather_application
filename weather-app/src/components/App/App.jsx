@@ -79,7 +79,7 @@ function App() {
 
           <LocationForm getGeoFromInput={getGeoFromInput} warning={warning} />
           <Capitals />
-          <WeatherDetails />
+          <WeatherDetails currentWeather={getCurrentWeather} />
 
         </div>
         <div className="left">
