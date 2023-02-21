@@ -6,10 +6,12 @@ import LocationForm from '../LocationForm/LocationForm';
 import WeatherDetails from '../WeatherDetails/WeatherDetails';
 import TodayWeather from '../TodayWeather/TodayWeather'
 import WeatherDays from '../WeatherDays/WeatherDays'
-import Capitals from '../Capitals/Capitals';
 /*+++++++++ */
 import bg1 from '../../assets/img/stormAlb/storm_3.png'
 import config from '../../config'
+import { setLocalStorage, addCityInLS, getCurrentLS } from '../../history'
+
+setLocalStorage()
 
 function App() {
   const states = ['Today', '5days']
@@ -39,16 +41,21 @@ function App() {
     }
   }
 
+  const getAllWeather = () => {
+    const request = Axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&units=metric&lon=${city.lon}&appid=${config.key}`)
+    request
+      .then((res) => {
+        setWeather(res.data.list)
+        console.log(res.data.list)
+      })
+  }
+
   React.useEffect(() => {
     if (city.name === '') {
       return
     } else {
-      const request = Axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&units=metric&lon=${city.lon}&appid=${config.key}`)
-      request
-        .then((res) => {
-          setWeather(res.data.list)
-          console.log(res.data.list)
-        })
+      getAllWeather()
+      if (!getCurrentLS().history.includes(city.name)) addCityInLS(city.name)
     }
   }, [city])
 
@@ -78,7 +85,12 @@ function App() {
           </div>
 
           <LocationForm getGeoFromInput={getGeoFromInput} warning={warning} />
-          <Capitals />
+          <ul className="historyList">
+            {/* <li>Moscow</li>
+            <li>Tokio</li>
+            <li>London</li>
+            <li>Paris</li> */}
+          </ul>
           <WeatherDetails currentWeather={getCurrentWeather} />
 
         </div>
