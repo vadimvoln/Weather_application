@@ -1,14 +1,15 @@
 import React from "react"
 
-function LocationForm({ getGeoFromInput, warning }) {
-  const [inputState, setInputState] = React.useState('')
+function LocationForm({ inputState, setInputState, getGeoFromInput, warning, getCurrentPosition }) {
+
   return (
     <div className="locationForm">
       <div className="cityInput">
         <input
-          onKeyDown={(e) => e.code === 'Enter' && getGeoFromInput(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && getGeoFromInput(e.target.value)}
           onChange={(e) => setInputState(e.target.value)}
-          value={inputState} type="text" placeholder="Location" />
+          value={inputState}
+          type="text" placeholder="Location" />
         {warning && <span>City not found</span>}
       </div>
       <button
@@ -27,7 +28,7 @@ function LocationForm({ getGeoFromInput, warning }) {
           />
         </svg>
       </button>
-      <button type='button'>
+      <button type='button' onClick={getCurrentPosition}>
         <svg
           width="23"
           height="23"

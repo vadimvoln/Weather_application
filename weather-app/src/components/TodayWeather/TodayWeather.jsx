@@ -1,11 +1,11 @@
 import formatDate from '../../formatDate'
 import iconSelection from '../../iconSelection'
 function TodayWeather({ currentWeather, city }) {
-  const temp = currentWeather() ? Math.round(currentWeather().main.temp) : ''
+  const temp = Object.keys(currentWeather).length ? Math.round(currentWeather.main.temp) : ''
   const date = formatDate()
 
   return (
-    currentWeather()
+    Object.keys(currentWeather).length
       ?
       <div className="weather">
         <div className="temp">{temp}&#176;</div>
@@ -14,7 +14,7 @@ function TodayWeather({ currentWeather, city }) {
           <div className="date">{date}</div>
         </div>
         <div className="weatherIcon">
-          {iconSelection(currentWeather())}
+          {iconSelection(currentWeather)}
         </div>
       </div>
       :

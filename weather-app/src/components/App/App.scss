@@ -47,26 +47,6 @@
     }
   }
 
-  .historyList {
-    margin-top: 30px;
-    border-bottom: 1px solid #7f9fb5;
-    li {
-      font-family: 'Montserrat';
-      font-weight: 400;
-      font-size: 16px;
-      color: $text-color;
-      cursor: pointer;
-
-      margin-bottom: 30px;
-      transition: color ease-in-out 0.1s;
-
-      &:hover {
-        color: #fff;
-        transition: color ease-in-out 0.1s;
-      }
-    }
-  }
-
   @import '../../components/LocationForm/LocationForm.scss';
   @import '../../components/WeatherDetails/WeatherDetails.scss';
 }

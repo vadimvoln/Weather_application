@@ -1,17 +1,14 @@
-import React from 'react';
+import React from 'react'
 import Axios from 'axios'
 
 /*Components*/
-import LocationForm from '../LocationForm/LocationForm';
-import WeatherDetails from '../WeatherDetails/WeatherDetails';
+import LocationForm from '../LocationForm/LocationForm'
+import WeatherDetails from '../WeatherDetails/WeatherDetails'
 import TodayWeather from '../TodayWeather/TodayWeather'
 import WeatherDays from '../WeatherDays/WeatherDays'
 /*+++++++++ */
 import bg1 from '../../assets/img/stormAlb/storm_3.png'
 import config from '../../config'
-import { setLocalStorage, addCityInLS, getCurrentLS } from '../../history'
-
-setLocalStorage()
 
 function App() {
   const states = ['Today', '5days']
@@ -23,12 +20,14 @@ function App() {
     lon: 0,
     lat: 0
   })
-  const [weather, setWeather] = React.useState([])
+  const [allWeather, setAllWeather] = React.useState([])
+  const [curWeather, setCurWeather] = React.useState({})
   const [warning, setWarning] = React.useState(false)
+  const [inputState, setInputState] = React.useState('')
 
-  const getGeoFromInput = (inputValue) => {
-    if (inputValue !== city.name) {
-      const request = Axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${inputValue}&appid=${config.key}`)
+  const getGeoFromInput = (inputState) => {
+    if (inputState !== city.name) {
+      const request = Axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${inputState}&appid=${config.key}`)
       request
         .then((res) => {
           setCity({
@@ -36,8 +35,30 @@ function App() {
             lon: res.data[0].lon,
             lat: res.data[0].lat
           })
+          setWarning(false)
+          setInputState('')
         })
         .catch((error) => setWarning(true))
+    }
+  }
+
+  const getCurrentPosition = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const lat = pos.coords.latitude
+        const lon = pos.coords.longitude
+        const request = Axios.get(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${1}&appid=${config.key}`)
+        request.then((res) => {
+          setCity({
+            name: res.data[0].name,
+            lon: lon,
+            lat: lat
+          })
+        })
+      })
+    }
+    else {
+      alert('Geolocation is not supported by this browser.')
     }
   }
 
@@ -45,9 +66,21 @@ function App() {
     const request = Axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&units=metric&lon=${city.lon}&appid=${config.key}`)
     request
       .then((res) => {
-        setWeather(res.data.list)
-        console.log(res.data.list)
+        setAllWeather(res.data.list)
       })
+  }
+
+  const getCurrentWeather = () => {
+    if (city.name !== '') {
+      const curDate = Date.now()
+      for (let i = 0; i < allWeather.length - 1; i++) {
+        const weatherDt = Date.parse(allWeather[i].dt_txt)
+        const weatherDtNext = Date.parse(allWeather[i + 1].dt_txt)
+        if (curDate >= weatherDt && curDate < weatherDtNext) {
+          setCurWeather(allWeather[i])
+        }
+      }
+    }
   }
 
   React.useEffect(() => {
@@ -55,22 +88,12 @@ function App() {
       return
     } else {
       getAllWeather()
-      if (!getCurrentLS().history.includes(city.name)) addCityInLS(city.name)
     }
   }, [city])
 
-  const getCurrentWeather = () => {
-    if (city.name !== '') {
-      const curDate = Date.now()
-      for (let i = 0; i < weather.length - 1; i++) {
-        const weatherDt = Date.parse(weather[i].dt_txt)
-        const weatherDtNext = Date.parse(weather[i + 1].dt_txt)
-        if (curDate >= weatherDt && curDate < weatherDtNext) {
-          return weather[i]
-        }
-      }
-    }
-  }
+  React.useEffect(() => {
+    getCurrentWeather()
+  }, [allWeather])
 
   return (
     <div className="App">
@@ -84,14 +107,13 @@ function App() {
             })}
           </div>
 
-          <LocationForm getGeoFromInput={getGeoFromInput} warning={warning} />
-          <ul className="historyList">
-            {/* <li>Moscow</li>
-            <li>Tokio</li>
-            <li>London</li>
-            <li>Paris</li> */}
-          </ul>
-          <WeatherDetails currentWeather={getCurrentWeather} />
+          <LocationForm
+            inputState={inputState}
+            setInputState={setInputState}
+            getGeoFromInput={getGeoFromInput}
+            warning={warning}
+            getCurrentPosition={getCurrentPosition} />
+          <WeatherDetails currentWeather={curWeather} />
 
         </div>
         <div className="left">
@@ -100,9 +122,7 @@ function App() {
             alt="background image"
             className="leftBg"
           />
-          {appState === states[0] && <TodayWeather
-            currentWeather={getCurrentWeather}
-            city={city.name} />}
+          {appState === states[0] && <TodayWeather currentWeather={curWeather} city={city.name} />}
           {appState === states[1] && <WeatherDays />}
         </div>
       </div>

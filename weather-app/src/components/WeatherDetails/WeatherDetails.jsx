@@ -1,6 +1,6 @@
 function WeatherDetails({ currentWeather }) {
-  const humidity = currentWeather() ? `${currentWeather().main.humidity}%` : 'No data'
-  const wind = currentWeather() ? `${Math.round(currentWeather().wind.speed)}km/h` : 'No data'
+  const humidity = Object.keys(currentWeather).length ? `${currentWeather.main.humidity}%` : 'No data'
+  const wind = Object.keys(currentWeather).length ? `${Math.round(currentWeather.wind.speed)}km/h` : 'No data'
   return (
     <>
       <h1 className="detailsTitle">Weather Details</h1>
