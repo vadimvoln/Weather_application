@@ -7,7 +7,7 @@ import WeatherDetails from '../WeatherDetails/WeatherDetails'
 import TodayWeather from '../TodayWeather/TodayWeather'
 import WeatherDays from '../WeatherDays/WeatherDays'
 /*+++++++++ */
-import bg1 from '../../assets/img/stormAlb/storm_3.png'
+import imgSelection from '../../imgSelection'
 import config from '../../config'
 
 function App() {
@@ -24,7 +24,9 @@ function App() {
   const [curWeather, setCurWeather] = React.useState({})
   const [warning, setWarning] = React.useState(false)
   const [inputState, setInputState] = React.useState('')
-
+  const [curImg, setCurImg] = React.useState('')
+  /*============================= */
+  /* function to get city geolocation from input */
   const getGeoFromInput = (inputState) => {
     if (inputState !== city.name) {
       const request = Axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${inputState}&appid=${config.key}`)
@@ -42,6 +44,7 @@ function App() {
     }
   }
 
+  /* function to get current user's geolocation */
   const getCurrentPosition = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
@@ -62,6 +65,7 @@ function App() {
     }
   }
 
+  /* function to get the weather for 5 days  */
   const getAllWeather = () => {
     const request = Axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&units=metric&lon=${city.lon}&appid=${config.key}`)
     request
@@ -70,6 +74,7 @@ function App() {
       })
   }
 
+  /* function to get the weather for today  */
   const getCurrentWeather = () => {
     if (city.name !== '') {
       const curDate = Date.now()
@@ -83,6 +88,7 @@ function App() {
     }
   }
 
+  /* All weather update after city update */
   React.useEffect(() => {
     if (city.name === '') {
       return
@@ -91,9 +97,15 @@ function App() {
     }
   }, [city])
 
+  /* current weather update after all weather update */
   React.useEffect(() => {
     getCurrentWeather()
   }, [allWeather])
+
+  /* current img update after current weather update */
+  React.useEffect(() => {
+    setCurImg(imgSelection(curWeather))
+  }, [curWeather])
 
   return (
     <div className="App">
@@ -118,7 +130,7 @@ function App() {
         </div>
         <div className="left">
           <img
-            src={bg1}
+            src={curImg}
             alt="background image"
             className="leftBg"
           />
