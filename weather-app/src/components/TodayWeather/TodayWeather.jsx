@@ -1,4 +1,4 @@
-import formatDate from '../../formatDate'
+import { formatDate } from '../../formatDate'
 import iconSelection from '../../iconSelection'
 function TodayWeather({ currentWeather, city }) {
   const temp = Object.keys(currentWeather).length ? Math.round(currentWeather.main.temp) : ''

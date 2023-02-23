@@ -22,6 +22,7 @@ function App() {
   })
   const [allWeather, setAllWeather] = React.useState([])
   const [curWeather, setCurWeather] = React.useState({})
+  const [fourDaysWeather, setFourDaysWeather] = React.useState([])
   const [warning, setWarning] = React.useState(false)
   const [inputState, setInputState] = React.useState('')
   const [curImg, setCurImg] = React.useState('')
@@ -88,6 +89,16 @@ function App() {
     }
   }
 
+  const getFourDaysWeather = () => {
+    const fourDaysArray = []
+    if (city.name !== '') {
+      for (let i = 8; i < allWeather.length - 1; i += 8) {
+        fourDaysArray.push(allWeather[i])
+        setFourDaysWeather(fourDaysArray)
+      }
+    }
+  }
+
   /* All weather update after city update */
   React.useEffect(() => {
     if (city.name === '') {
@@ -100,6 +111,7 @@ function App() {
   /* current weather update after all weather update */
   React.useEffect(() => {
     getCurrentWeather()
+    getFourDaysWeather()
   }, [allWeather])
 
   /* current img update after current weather update */
@@ -135,7 +147,7 @@ function App() {
             className="leftBg"
           />
           {appState === states[0] && <TodayWeather currentWeather={curWeather} city={city.name} />}
-          {appState === states[1] && <WeatherDays />}
+          {appState === states[1] && <WeatherDays currentWeather={curWeather} fourDaysWeather={fourDaysWeather} city={city.name} />}
         </div>
       </div>
     </div>
