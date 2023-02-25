@@ -30,7 +30,7 @@ function App() {
   /* function to get city geolocation from input */
   const getGeoFromInput = (inputState) => {
     if (inputState !== city.name) {
-      const request = Axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${inputState}&appid=${config.key}`)
+      const request = Axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${inputState}&appid=${config.key}`)
       request
         .then((res) => {
           setCity({
@@ -51,7 +51,7 @@ function App() {
       navigator.geolocation.getCurrentPosition((pos) => {
         const lat = pos.coords.latitude
         const lon = pos.coords.longitude
-        const request = Axios.get(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${1}&appid=${config.key}`)
+        const request = Axios.get(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${1}&appid=${config.key}`)
         request.then((res) => {
           setCity({
             name: res.data[0].name,
@@ -68,7 +68,7 @@ function App() {
 
   /* function to get the weather for 5 days  */
   const getAllWeather = () => {
-    const request = Axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&units=metric&lon=${city.lon}&appid=${config.key}`)
+    const request = Axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&units=metric&lon=${city.lon}&appid=${config.key}`)
     request
       .then((res) => {
         setAllWeather(res.data.list)
