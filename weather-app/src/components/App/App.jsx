@@ -7,7 +7,7 @@ import WeatherDetails from '../WeatherDetails/WeatherDetails'
 import TodayWeather from '../TodayWeather/TodayWeather'
 import WeatherDays from '../WeatherDays/WeatherDays'
 /*+++++++++ */
-import imgSelection from '../../imgSelection'
+import imgSelection from '../../logic/imgSelection'
 import config from '../../config'
 
 function App() {

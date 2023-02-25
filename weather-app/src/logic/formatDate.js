@@ -38,6 +38,12 @@ function formatSecToDay(sec) {
   const milSec = sec * 1000
   const dateObj = new Date(milSec)
   const day = dateObj.getDay()
-  return days[day]
+  const date = dateObj.getDate()
+  const month = dateObj.getMonth()
+  const parseYear = () => {
+    const arr = dateObj.getFullYear().toString().split('')
+    return `${arr[arr.length - 2]}${arr[arr.length - 1]}`
+  }
+  return `${days[day]} ${date} ${monthes[month]} ${parseYear()}`
 }
 export { formatDate, formatSecToDay }

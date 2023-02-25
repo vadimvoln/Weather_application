@@ -18,35 +18,33 @@
     flex-wrap: wrap;
     .daysItem {
       box-sizing: border-box;
-      max-width: 180px;
+      width: 160px;
       background: rgba(127, 159, 181, 0.6);
       border-radius: 20px;
 
-      cursor: pointer;
-
       padding: 13px 10px;
       transition: background ease-in-out 0.2s;
-      &:hover {
-        background: rgba(82, 189, 255, 0.6);
-        transition: background ease-in-out 0.2s;
-      }
       &__date {
         font-size: 18px;
+        text-align: center;
       }
       &__temp {
+        text-align: center;
         font-size: 70px;
       }
       &__icon {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-top: 5px;
         span {
           margin-top: 5px;
           font-size: 26px;
         }
       }
-      &-active {
+      &-today {
         background: rgba(82, 189, 255, 0.6);
+        width: 180px;
       }
     }
   }

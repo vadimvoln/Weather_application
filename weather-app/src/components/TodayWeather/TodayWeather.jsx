@@ -1,5 +1,5 @@
-import { formatDate } from '../../formatDate'
-import iconSelection from '../../iconSelection'
+import { formatDate } from '../../logic/formatDate'
+import iconSelection from '../../logic/iconSelection'
 function TodayWeather({ currentWeather, city }) {
   const temp = Object.keys(currentWeather).length ? Math.round(currentWeather.main.temp) : ''
   const date = formatDate()
