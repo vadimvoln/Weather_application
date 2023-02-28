@@ -26,6 +26,7 @@ function App() {
   const [warning, setWarning] = React.useState(false)
   const [inputState, setInputState] = React.useState('')
   const [curImg, setCurImg] = React.useState('')
+  const [isLoading, setIsLoading] = React.useState(false)
   /*============================= */
   /* function to get city geolocation from input */
   const getGeoFromInput = (inputState) => {
@@ -72,7 +73,7 @@ function App() {
     request
       .then((res) => {
         setAllWeather(res.data.list)
-      })
+      }).catch(error => alert(`Weather not found (${error})`))
   }
 
   /* function to get the weather for today  */
